@@ -1,0 +1,92 @@
+// app.js - full version
+document.addEventListener('DOMContentLoaded', () => {
+  const products = [
+    {id:1, title:'Stylish Lamp', price:29, img:'assets/sample1.svg', desc:'Minimal designer lamp.'},
+    {id:2, title:'Modern Chair', price:89, img:'assets/sample2.svg', desc:'Comfortable & aesthetic.'},
+    {id:3, title:'Ceramic Vase', price:24, img:'assets/sample1.svg', desc:'Handmade look.'},
+    {id:4, title:'Cozy Blanket', price:49, img:'assets/sample2.svg', desc:'Soft and warm.'}
+  ];
+
+  // Render product cards
+  const grid = document.getElementById('productGrid');
+  products.forEach(p => {
+    const card = document.createElement('article');
+    card.className = 'card reveal';
+    card.innerHTML = `
+      <img src="${p.img}" alt="${p.title}" loading="lazy" width="400" height="260">
+      <h4>${p.title}</h4>
+      <p class="text-muted">${p.desc}</p>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.8rem">
+        <strong>₹${p.price}</strong>
+        <button class="btn primary add-to-cart" data-id="${p.id}">Add</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  // Simple cart (demo)
+  const cart = [];
+  document.body.addEventListener('click', (e) => {
+    if (e.target.matches('.add-to-cart')) {
+      const id = Number(e.target.dataset.id);
+      const prod = products.find(x=>x.id===id);
+      cart.push(prod);
+      e.target.textContent = 'Added';
+      setTimeout(()=>e.target.textContent='Add',900);
+      showToast(prod.title + ' added to cart');
+    }
+  });
+
+  // Toast notifications
+  function showToast(msg){
+    let t = document.createElement('div');
+    t.className = 'toast';
+    t.textContent = msg;
+    Object.assign(t.style, {
+      position:'fixed', right:'20px', bottom:'20px', background:'#0f172a', color:'#fff', padding:'10px 14px',
+      borderRadius:'10px', boxShadow:'0 6px 18px rgba(2,6,23,0.2)', zIndex:9999, opacity:0, transform:'translateY(8px)',
+      transition:'opacity .25s, transform .25s'
+    });
+    document.body.appendChild(t);
+    requestAnimationFrame(()=> { t.style.opacity = 1; t.style.transform = 'translateY(0)'; });
+    setTimeout(()=> { t.style.opacity = 0; t.style.transform = 'translateY(8px)'; setTimeout(()=>t.remove(),300); }, 1800);
+  }
+
+  // Reveal on scroll using IntersectionObserver
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, {threshold: 0.12});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Menu toggle for mobile
+  const menuBtn = document.getElementById('menuBtn');
+  if(menuBtn){
+    menuBtn.addEventListener('click', () => {
+      document.querySelector('.nav').classList.toggle('open');
+      menuBtn.classList.toggle('open');
+    });
+  }
+
+  // Smooth internal links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e)=>{
+      const target = document.querySelector(a.getAttribute('href'));
+      if(target){
+        e.preventDefault();
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  });
+
+  // Contact form demo handler
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    showToast('Thanks — message sent (demo).');
+    form.reset();
+  });
+
+  // small perf tip: prefer delegated events and lazy-loading images (already used)
+});

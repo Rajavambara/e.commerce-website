@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Capstone — Responsive Animated Web App</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Use minified for production -->
+    <!-- <link rel="stylesheet" href="css/styles.min.css"> -->
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1 class="logo">WEBSITE</h1>
+            <nav class="nav">
+                <a href="#hero">Home</a>
+                <a href="#products">Products</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <button id="menuBtn" class="menu-btn" aria-label="Toggle menu">☰</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero">
+            <div class="container hero-grid">
+                <div class="hero-left reveal">
+                    <h2>E.COMMERCE ONLINE SHOPPING</h2>
+                    <p>A modern, animated, responsive web app performance, responsiveness, and compatibility.</p>
+                    <div class="cta-row">
+                        <button id="exploreBtn" class="btn primary">Explore Products</button>
+                        <a href="#contact" class="btn ghost">Get in touch</a>
+                    </div>
+                </div>
+                <div class="hero-right reveal">
+                    <img src="assets/sample1.svg" alt="Product demo" loading="lazy" width="520" height="360">
+                </div>
+            </div>
+        </section>
+
+        <section id="products" class="products container">
+            <h3 class="section-title">Featured Items</h3>
+            <div class="grid" id="productGrid">
+                <!-- Cards inserted by JS for demo -->
+            </div>
+        </section>
+        <section id="contact" class="contact container">
+            <h3 class="section-title">Contact</h3>
+            <form id="contactForm" class="contact-form" novalidate>
+                <label>
+          <span>Name</span>
+          <input type="text" name="name" required>
+        </label>
+                <label>
+          <span>Email</span>
+          <input type="email" name="email" required>
+        </label>
+                <label>
+          <span>Message</span>
+          <textarea name="message" rows="4" required></textarea>
+        </label>
+                <button class="btn primary" type="submit">Send</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <span>@ RAJAVAMBARA</span>
+            <div class="footer-links">
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js" defer></script>
+    <!-- Use minified for production -->
+    <!-- <script src="js/app.min.js" defer></script> -->
+</body>
+
+</html>
